@@ -14,6 +14,15 @@ def read_input_as_list_int(file_name):
         return list_int
 
 
+def sliding_window(list_int_input, len_window):
+    list_int_output = []
+    for index, _ in enumerate(list_int_input):
+        if index <= len(list_int_input) - len_window:
+            sum_slide_window = sum(list_int_input[index : index + len_window])
+            list_int_output.append(sum_slide_window)
+    return list_int_output
+
+
 def depth_change(list_int):
     list_depth_change = list()
     previous_depth = None
@@ -29,7 +38,7 @@ def depth_change(list_int):
             else:
                 list_depth_change.append("no change")
             previous_depth = depth
-    
+
     return list_depth_change
 
 
@@ -38,14 +47,16 @@ def count_increased_depth(list_depth_change):
     for depth_change in list_depth_change:
         if depth_change == "increased":
             total_increased_depth += 1
-    
+
     return total_increased_depth
 
 
 def main():
-    list_int = read_input_as_list_int("input_hnfo_day1_a.txt")
-    list_depth_change = depth_change(list_int)
+    list_int_input = read_input_as_list_int("input_hnfo_day1_a.txt")
+    list_int_slidding_window = sliding_window(list_int_input, 3)
+    list_depth_change = depth_change(list_int_slidding_window)
     return count_increased_depth(list_depth_change)
+
 
 if __name__ == "__main__":
     total_increased_depth = main()
